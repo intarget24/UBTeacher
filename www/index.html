@@ -19,28 +19,291 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<html ng-app="UBEvalTeacherApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/framework7.ios.min.css">
+    <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+    <link rel="stylesheet" href="css/angular-chart.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/angular.js"></script>
+    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/angular-chart.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <title></title>
+</head>
+<body ng-controller="general">
+<!-- Status bar overlay for fullscreen mode-->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+<!-- Left panel with reveal effect-->
+<div class="panel panel-left panel-reveal">
+    <div class="content-block">
+        <!--<p>Left panel content goes here</p>-->
+        <p><a href="#" ng-click="Abrir('ayuda')" class="link icon-only open-panel color-white close-panel"> <i
+                class="icon icon-setting color-white"></i>Ayuda</a></p>
+
+        <p><a href="#" ng-click="Abrir('acerca')" class="link icon-only open-panel color-white close-panel"> <i
+                class="icon icon-setting color-white"></i>Acerca</a></p>
+    </div>
+</div>
+<!-- Right panel with cover effect-->
+<div class="panel panel-right panel-cover">
+    <div class="content-block">
+        <p>Right panel content goes here</p>
+    </div>
+</div>
+
+<div class="views">
+    <!-- Your main view, should have "view-main" class-->
+    <div class="view view-main">
+        <div class="pages navbar-fixed">
+            <!-- NAVBAR-->
+            <div class="navbar no-border">
+                <!--NAVBAR de LOGIN-->
+                <div class="navbar-inner" data-page="login">
+                    <div class="left">
+                        <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a>
+                    </div>
+                    <div class="center sliding">Evaluación Ubiquit Inventor</div>
+                    <div class="right">
+                    </div>
+                </div>
+                <!--NAVBAR de MENU CICLO-->
+                <div class="navbar-inner cached" data-page="menuCycle">
+                    <div class="left sliding">
+                        <a href="#login" class="link back">
+                            <i class="icon icon-back"></i><span>Atrás</span>
+                        </a>
+                    </div>
+                    <div class="center sliding">Selección de Ciclo</div>
+                    <div class="right"></div>
+                </div>
+                <!--NAVBAR de MENU PROYECT-->
+                <div class="navbar-inner cached" data-page="menuProyect">
+                    <div class="left sliding">
+                        <a href="#menuCycle" class="link back">
+                            <i class="icon icon-back"></i><span>Atrás</span>
+                        </a>
+                    </div>
+                    <div class="center sliding">Selección de proyecto</div>
+                    <div class="right"></div>
+                </div>
+                <!--NAVBAR de MENU SESION-->
+                <div class="navbar-inner cached" data-page="menuSession">
+                    <div class="left sliding">
+                        <a href="#menuProyect" class="link back">
+                            <i class="icon icon-back"></i><span>Atrás</span>
+                        </a>
+                    </div>
+                    <div class="center sliding">Selección de sesión</div>
+                    <div class="right"></div>
+                </div>
+
+                <!--NAVBAR de indicadores SESION-->
+                <div class="navbar-inner cached" data-page="evalStudent">
+                    <div class="left sliding">
+                        <a href="#menuProyect" class="link back">
+                            <i class="icon icon-back"></i><span>Atrás</span>
+                        </a>
+                    </div>
+                    <div class="center sliding">Evalua indicadores</div>
+                    <div class="right"></div>
+                </div>
+            </div>
+            <!--Seccion de paginas -->
+            <div class="pages navbar-through toolbar-through">
+                <!--Pagina de Login-->
+                <div data-page="login" class="page">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Bienvenido a la App de Evaluación</div>
+                        <div class="content-block">
+                            <div class="content-block-inner">
+                                <p>Escanea tu UBICODE de profesor, para que el escaneo sea efectivo toma la foto en
+                                    horizontal. </p>
+                                <div class="list-block">
+                                    <ul>
+                                        <!-- Text inputs -->
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                                <div class="item-inner">
+                                                    <div class="item-title label">UBICODE</div>
+                                                    <div class="item-input">
+                                                        <input type="text" placeholder="CÓDIGO"
+                                                               ng-model="ubicodeSession">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <p><a href="#" class="button  button-fill button-round color-green"
+                                      ng-click="ScanLogin()">ESCANEAR</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pagina de seleccion de Ciclo MENU-->
+                <div data-page="menuCycle" class="page cached">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Selecciona el ciclo que evaluaras</div>
+                        <div class="card">
+                            <!--<div class="card-header">New Releases:</div>-->
+                            <div class="card-content">
+                                <div class="list-block media-list">
+                                    <ul>
+                                        <li ng-repeat="cycle in cycles">
+                                            <a href="#" class="item-link item-content" ng-click="SelectCycle()">
+                                                <div class="item-media">
+                                                    <img src="img/portadas/{{cycle.imagen}}" width="44">
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{cycle.name}}</div>
+                                                    </div>
+                                                    <div class="item-subtitle">{{cycle.description}}</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pagina de seleccion de Proyecto MENU-->
+                <div data-page="menuProyect" class="page cached">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Selecciona el proyecto que evaluaras</div>
+                        <div class="card">
+                            <!--<div class="card-header">New Releases:</div>-->
+                            <div class="card-content">
+                                <div class="list-block media-list">
+                                    <ul>
+                                        <li ng-repeat="proyect in proyects">
+                                            <a href="#" class="item-link item-content" ng-click="SelectProyect()">
+                                                <div class="item-media">
+                                                    <img src="img/proyects/{{proyect.imagen}}" width="44">
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{proyect.name}}</div>
+                                                    </div>
+                                                    <!--<div class="item-subtitle">{{proyect.description}}</div>-->
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pagina de seleccion de Sesion MENU-->
+                <div data-page="menuSession" class="page cached">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Selecciona la sesión que evaluaras</div>
+                        <div class="card">
+                            <!--<div class="card-header">New Releases:</div>-->
+                            <div class="card-content">
+                                <div class="list-block media-list">
+                                    <ul>
+                                        <li ng-repeat="session in sessions">
+                                            <a href="#" class="item-link item-content" ng-click="SelectSession()">
+                                                <div class="item-media">
+                                                    <img src="img/bookSections/sesiones/{{session.imagen}}" width="44">
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{session.name}}</div>
+                                                    </div>
+                                                    <div class="item-subtitle">{{session.description}}</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pagina de Escaneo alumno-->
+                <div data-page="scanStudent" class="page cached">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Evalua</div>
+                        <div class="content-block">
+                            <div class="content-block-inner">
+
+                                <p>Para calificar a un alumno, escanea el UBICODE DEL LIBRO DE ALUMNO, para que el escaneo sea efectivo toma la foto en
+                                    horizontal. Una vez escaneado podras evaluar los indicadores</p>
+
+                                <p><a href="#" class="button  button-fill button-round color-green"
+                                      ng-click="ScanUbicode()">ESCANEAR</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--pagina de Evalua alumno-->
+                <div data-page="evalStudent" class="page cached">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <img src="" id="myImage">
+                        <div class="content-block-title">Selecciona si cumple con el indicador</div>
+                        <div class="list-block media-list">
+                            <ul>
+                                <li>
+                                    <label class="label-radio item-content">
+                                        <input type="checkbox" name="my-checkbox" checked>
+                                        <div class="item-media"><img src="..." width="80"></div>
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">Yellow Submarine</div>
+                                                <div class="item-after">$15</div>
+                                            </div>
+                                            <div class="item-subtitle">Beatles</div>
+                                            <div class="item-text">Lorem ipsum dolor ...</div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    </div>
+</div>
+</div>
+
+
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<script type="text/javascript">
+    //app.initialize();
+</script>
+</body>
 </html>
