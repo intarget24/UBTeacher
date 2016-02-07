@@ -49,13 +49,19 @@
 <!-- Panels overlay-->
 <div class="panel-overlay"></div>
 <!-- Left panel with reveal effect-->
-<div class="panel panel-left panel-reveal">
+<div class="panel panel-left panel-reveal color-blue">
     <div class="content-block">
         <!--<p>Left panel content goes here</p>-->
-        <p><a href="#" ng-click="Abrir('ayuda')" class="link icon-only open-panel color-white close-panel"> <i
+        <p><a href="#" ng-click="MenuSide(1)" class="link icon-only open-panel color-white close-panel"> <i
+                class="icon icon-setting color-white"></i>Evaluar Alumnos</a></p>
+
+        <p><a href="#" ng-click="MenuSide(2)" class="link icon-only open-panel color-white close-panel"> <i
+                class="icon icon-setting color-white"></i>Registrar Evidencia</a></p>
+
+        <p><a href="#" ng-click="MenuSide(3)" class="link icon-only open-panel color-white close-panel"> <i
                 class="icon icon-setting color-white"></i>Ayuda</a></p>
 
-        <p><a href="#" ng-click="Abrir('acerca')" class="link icon-only open-panel color-white close-panel"> <i
+        <p><a href="#" ng-click="MenuSide(4)" class="link icon-only open-panel color-white close-panel"> <i
                 class="icon icon-setting color-white"></i>Acerca</a></p>
     </div>
 </div>
@@ -112,10 +118,21 @@
                     <div class="right"></div>
                 </div>
 
-                <!--NAVBAR de indicadores SESION-->
+                <!--NAVBAR de SCAN UBICODE STUDENT-->
+                <div class="navbar-inner cached" data-page="scanStudent">
+                    <div class="left sliding">
+                        <a href="#menuSession" class="link back">
+                            <i class="icon icon-back"></i><span>Atrás</span>
+                        </a>
+                    </div>
+                    <div class="center sliding">Escanear Ubicode</div>
+                    <div class="right"></div>
+                </div>
+
+                <!--NAVBAR de indicadores SESION UBICODE-->
                 <div class="navbar-inner cached" data-page="evalStudent">
                     <div class="left sliding">
-                        <a href="#menuProyect" class="link back">
+                        <a href="#scanStudent" class="link back">
                             <i class="icon icon-back"></i><span>Atrás</span>
                         </a>
                     </div>
@@ -133,18 +150,17 @@
                         <div class="content-block">
                             <div class="content-block-inner">
                                 <p>Escanea tu UBICODE de profesor, para que el escaneo sea efectivo toma la foto en
-                                    horizontal. </p>
+                                    horizontal.</p>
                                 <div class="list-block">
                                     <ul>
                                         <!-- Text inputs -->
                                         <li>
                                             <div class="item-content">
-                                                <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                                <div class="item-media"><i class="icon icon-form-toggle"></i></div>
                                                 <div class="item-inner">
                                                     <div class="item-title label">UBICODE</div>
                                                     <div class="item-input">
-                                                        <input type="text" placeholder="CÓDIGO"
-                                                               ng-model="ubicodeSession">
+                                                        <input type="text" placeholder="CÓDIGO" ng-model="ubicodeSession">
                                                     </div>
                                                 </div>
                                             </div>
@@ -271,26 +287,33 @@
                 <div data-page="evalStudent" class="page cached">
                     <!-- Scrollable page content-->
                     <div class="page-content">
-                        <img src="" id="myImage">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-content-inner">Ubicode: 89787987</div>
+                            </div>
+                        </div>
+
                         <div class="content-block-title">Selecciona si cumple con el indicador</div>
                         <div class="list-block media-list">
                             <ul>
-                                <li>
+                                <li ng-repeat="indicator in indicators">
                                     <label class="label-radio item-content">
                                         <input type="checkbox" name="my-checkbox" checked>
-                                        <div class="item-media"><img src="..." width="80"></div>
+                                        <div class="item-media"><img src="{{indicator.image}}" width="80"></div>
                                         <div class="item-inner">
                                             <div class="item-title-row">
-                                                <div class="item-title">Yellow Submarine</div>
-                                                <div class="item-after">$15</div>
+                                                <div class="item-title">{{indicator.name}}</div>
+                                                <div class="item-after"></div>
                                             </div>
-                                            <div class="item-subtitle">Beatles</div>
-                                            <div class="item-text">Lorem ipsum dolor ...</div>
+                                            <div class="item-subtitle"></div>
+                                            <div class="item-text">{{indicator.description}}</div>
                                         </div>
                                     </label>
                                 </li>
                             </ul>
                         </div>
+                        <a href="#" class="button  button-fill button-round color-green"
+                           ng-click="SaveStudentEval()">Guardar Evaluación</a>
                     </div>
                 </div>
 

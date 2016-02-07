@@ -43,11 +43,21 @@ Myapp.angular.controller('general', function ($scope, $http) {
 
         ];
 
+    $scope.indicators=[
+        {id: 0, name: 'Juega', description: 'Interpreta documentos de "Construye', image: 'img/bookSections/sections/juega.png'},
+        {id: 1, name: 'Conoce', description: 'Relaciona contenidos con sus experiencias', image: 'img/bookSections/sections/conoce.png'},
+        {id: 2, name: 'Resuelve', description: 'Relaciona contenidos con las actividades', image: 'img/bookSections/sections/resuelve.png'},
+        {id: 3, name: 'Conecta', description: 'Conecta un dispositivo inteligente al Xaipo´s Brain', image: 'img/bookSections/sections/conecta.png'},
+        {id: 4, name: 'Construye', description: 'Se muestra tolerante con sus compañeros', image: 'img/bookSections/sections/construye.png'},
+            {id: 5, name: 'Ordena', description: 'Conoce la historia de las ferias', image: 'img/bookSections/sections/ordena.png'}
+    ];
+
+    $scope.currentStudentEval = {};
+
     $scope.ScanLogin = function(){
         $scope.ubicodeSession = "456789";
         //alert("Escaneo de Login");
         navigation.mainView.router.load({pageName:'menuCycle'});
-
     }
 
     $scope.SelectCycle = function()
@@ -68,20 +78,36 @@ Myapp.angular.controller('general', function ($scope, $http) {
     $scope.ScanUbicode = function()
     {
         alert("Alumno");
-        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+        /*navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
-        });
+        });*/
 
         function onSuccess(imageData) {
-            var image = document.getElementById('myImage');
-            image.src = "data:image/jpeg;base64," + imageData;
+            //var image = document.getElementById('myImage');
+            //image.src = "data:image/jpeg;base64," + imageData;
             navigation.mainView.router.load({pageName:'evalStudent'});
         }
 
         function onFail(message) {
             alert('Failed because: ' + message);
         }
-        //navigation.mainView.router.load({pageName:'evalStudent'});
+        navigation.mainView.router.load({pageName:'evalStudent'});
     }
 
+    $scope.MenuSide= function(id)
+    {
+        switch(id)
+        {
+            case 1:
+                navigation.mainView.router.load({pageName:'login'});
+                break;
+            case 2:
+                navigation.mainView.router.load({pageName:'evalStudent'});
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+    }
 });
